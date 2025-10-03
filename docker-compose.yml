@@ -1,4 +1,5 @@
 version: "3.9"
+
 services:
   frontend:
     build:
@@ -7,9 +8,10 @@ services:
     container_name: frontend_container
     ports:
       - "5173:5173"
+    working_dir: /app
     volumes:
-      - ./frontend:/frontend
-      - /frontend/node_modules
+      - ./frontend:/app
+      - /app/node_modules
     depends_on:
       - backend
     command: ["npm", "run", "dev", "--", "--host"]
@@ -21,7 +23,29 @@ services:
     container_name: backend_container
     ports:
       - "5000:5000"
+    working_dir: /app
     volumes:
-      - ./backend:/backend
-      - /backend/node_modules
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - mysql-db
+    environment:
+      DB_HOST: mysql-db
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: todo_app
     command: ["npm", "run", "dev"]
+
+  mysql-db:
+    image: mysql:8
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: todo_app
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

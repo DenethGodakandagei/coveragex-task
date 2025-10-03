@@ -2,7 +2,7 @@
 FROM node:20
 
 # Set working directory
-WORKDIR /frontend
+WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
