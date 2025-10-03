@@ -14,54 +14,51 @@ interface TaskListProps {
 }
 
 const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskUpdated }) => {
-  // Function to mark task as completed
   const markDone = async (id: number) => {
     try {
       await API.put(`/tasks/${id}/complete`);
-      onTaskUpdated(); 
+      onTaskUpdated();
     } catch (error) {
       console.error("Error marking task as done:", error);
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto space-y-4 mt-6">
-     
-      {tasks.map((task) => (
-        <div
-          key={task.id}
-          className={`p-4 rounded-lg shadow-md flex flex-col md:flex-row justify-between items-start md:items-center transition ${
-            task.is_completed
-              ? "bg-green-100 text-green-800"
-              : "bg-white text-gray-800" 
-          }`}
-        >
-          {/* Task title & description */}
-          <div className="flex-1">
-            <h3
-              className={`text-lg font-semibold ${
-                task.is_completed ? "line-through" : ""
-              }`}
-            >
-              {task.title}
-            </h3>
-            {task.description && (
-              <p className={`mt-1 ${task.is_completed ? "line-through" : ""}`}>
-                {task.description}
-              </p>
+    <div className="space-y-4 w-full max-w-3xl">
+      {tasks.length === 0 ? (
+        <div className="text-center text-gray-500 py-6 border border-dashed border-gray-300 rounded-lg">
+          <p className="text-sm"> No tasks available. Add one to get started!</p>
+        </div>
+      ) : (
+        tasks.map((task) => (
+          <div
+            key={task.id}
+            className="bg-white border border-gray-200 p-4 rounded-lg flex justify-between items-start shadow-sm"
+          >
+            {/* Left: Title + Description */}
+            <div className="flex-1 justify-start pr-4">
+              <h3 className="font-semibold text-lg text-gray-800 break-words text-start">
+                {task.title}
+              </h3>
+              {task.description && (
+                <p className="text-gray-600 mt-1 text-sm break-words text-start">
+                  {task.description}
+                </p>
+              )}
+            </div>
+
+            {/* Right: Action Button */}
+            {!task.is_completed && (
+              <button
+                onClick={() => markDone(task.id)}
+                className="border border-green-600 text-green-600 px-4 py-1 rounded-md hover:bg-green-50 transition"
+              >
+                Done
+              </button>
             )}
           </div>
-
-          {!task.is_completed && (
-            <button
-              onClick={() => markDone(task.id)}
-              className="mt-2 md:mt-0 bg-blue-500 hover:bg-blue-600 text-white font-medium px-4 py-2 rounded-md transition"
-            >
-              Mark Done
-            </button>
-          )}
-        </div>
-      ))}
+        ))
+      )}
     </div>
   );
 };

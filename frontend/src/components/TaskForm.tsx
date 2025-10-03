@@ -1,82 +1,77 @@
 import React, { useState } from "react";
 import API from "../services/api";
+import Popup from "./popup";
+
 interface TaskFormProps {
- 
   onTaskAdded: () => void;
 }
 
 const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
-  
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
-  // Form submission handler
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); 
+    e.preventDefault();
     try {
-      // Send POST request
       await API.post("/tasks", { title, description });
-      
-      // Reset form fields
       setTitle("");
       setDescription("");
-      
-      
       onTaskAdded();
+      setShowPopup(true);
     } catch (error) {
       console.error("Error adding task:", error);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-lg mx-auto bg-white p-6 rounded-xl shadow-md space-y-4"
-    >
-      {/* Form heading */}
-      <h2 className="text-2xl font-semibold text-gray-800 text-center">
-        Add New Task
-      </h2>
+    <div className="max-w-md w-full bg-white shadow-md rounded-xl p-6 relative">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <h2 className="text-lg font-semibold">Add a Task</h2>
 
-      {/* Title input field */}
-      <div className="flex flex-col">
-        <label htmlFor="title" className="mb-1 font-medium text-gray-700">
-          Title
-        </label>
-        <input
-          id="title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)} 
-          placeholder="Enter task title"
-          required
-          className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
-        />
-      </div>
+        <div>
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1 text-start">
+            Title
+          </label>
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="e.g. Finish project report"
+            required
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
+        </div>
 
-      {/* Description input field */}
-      <div className="flex flex-col">
-        <label htmlFor="description" className="mb-1 font-medium text-gray-700">
-          Description
-        </label>
-        <textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Enter task description"
-          className="border border-gray-300 rounded-md px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
-          rows={4}
-        />
-      </div>
+        <div>
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1 text-start">
+            Description
+          </label>
+          <textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="e.g. Review feedback and finalize conclusions."
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            rows={3}
+          />
+        </div>
 
-      {/* Submit button */}
-      <button
-        type="submit"
-        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition"
-      >
-        Add Task
-      </button>
-    </form>
+        <button
+          type="submit"
+          className="w-full flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-2 rounded-md transition"
+        >
+          Add Task
+        </button>
+      </form>
+
+      <Popup
+        message="Task added successfully!"
+        show={showPopup}
+        onClose={() => setShowPopup(false)}
+      />
+    </div>
   );
 };
 

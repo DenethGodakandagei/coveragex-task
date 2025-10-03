@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="App min-h-screen p-8">
-      <h1 className="text-3xl font-bold text-center mb-8">To-Do List</h1>
+      <h1 className="text-3xl font-bold text-center mb-8">To-Do List App</h1>
 
       {/*  container */}
       <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto">
