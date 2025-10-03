@@ -33,6 +33,6 @@ const createTaskTable = async () => {
 };
 
 // Run table creation on startup
-createTaskTable();
+//createTaskTable();
 
 export default pool;
