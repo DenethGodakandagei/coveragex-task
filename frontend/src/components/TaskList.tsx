@@ -14,10 +14,11 @@ interface TaskListProps {
 }
 
 const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskUpdated }) => {
+  // Function to mark task as completed
   const markDone = async (id: number) => {
     try {
       await API.put(`/tasks/${id}/complete`);
-      onTaskUpdated();
+      onTaskUpdated(); 
     } catch (error) {
       console.error("Error marking task as done:", error);
     }
@@ -25,15 +26,17 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskUpdated }) => {
 
   return (
     <div className="max-w-xl mx-auto space-y-4 mt-6">
+     
       {tasks.map((task) => (
         <div
           key={task.id}
           className={`p-4 rounded-lg shadow-md flex flex-col md:flex-row justify-between items-start md:items-center transition ${
             task.is_completed
               ? "bg-green-100 text-green-800"
-              : "bg-white text-gray-800"
+              : "bg-white text-gray-800" 
           }`}
         >
+          {/* Task title & description */}
           <div className="flex-1">
             <h3
               className={`text-lg font-semibold ${
@@ -48,6 +51,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskUpdated }) => {
               </p>
             )}
           </div>
+
           {!task.is_completed && (
             <button
               onClick={() => markDone(task.id)}
