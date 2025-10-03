@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../src/app'; // import the app, not server.ts
+import app from '../src/app'; 
 import db from '../src/config/db';
 
 // Mock db so no real DB connection is made

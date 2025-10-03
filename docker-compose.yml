@@ -2,19 +2,21 @@ version: "3.9"
 
 services:
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: frontend_container
-    ports:
-      - "5173:5173"
-    working_dir: /app
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    depends_on:
-      - backend
-    command: ["npm", "run", "dev", "--", "--host"]
+   build:
+    context: ./frontend
+    dockerfile: Dockerfile
+   container_name: frontend_container
+   ports:
+    - "5173:5173"
+   working_dir: /app
+   volumes:
+   - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+   depends_on:
+    - backend
+   command: ["npm", "run", "dev", "--", "--host"]
+   
+
 
   backend:
     build:
@@ -26,7 +28,7 @@ services:
     working_dir: /app
     volumes:
       - ./backend:/app
-      - /app/node_modules
+      - backend_node_modules:/app/node_modules
     depends_on:
       - mysql-db
     environment:
@@ -34,6 +36,7 @@ services:
       DB_USER: root
       DB_PASSWORD: root
       DB_NAME: todo_app
+      DB_PORT: "3307"
     command: ["npm", "run", "dev"]
 
   mysql-db:
@@ -46,6 +49,9 @@ services:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
   mysql_data:
+  backend_node_modules:
+  frontend_node_modules:
