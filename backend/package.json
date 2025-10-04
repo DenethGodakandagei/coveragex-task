@@ -5,9 +5,9 @@
   "type": "module",
   "main": "dist/server.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/server.js",
-    "dev": "node --loader ts-node/esm src/server.ts",
+    "build": "node init && tsc",
+    "start": "node init && node dist/server.js",
+    "dev": "node init && node --loader ts-node/esm src/server.ts",
     "test": "jest --coverage"
   },
   "keywords": [],
