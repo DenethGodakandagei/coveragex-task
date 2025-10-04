@@ -30,7 +30,10 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
         <h2 className="text-lg font-semibold">Add a Task</h2>
 
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1 text-start">
+          <label
+            htmlFor="title"
+            className="block text-sm font-medium text-gray-700 mb-1 text-start"
+          >
             Title
           </label>
           <input
@@ -45,7 +48,10 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1 text-start">
+          <label
+            htmlFor="description"
+            className="block text-sm font-medium text-gray-700 mb-1 text-start"
+          >
             Description
           </label>
           <textarea
@@ -59,6 +65,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
         </div>
 
         <button
+          data-cy="task-form-submit" 
           type="submit"
           className="w-full flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-2 rounded-md transition"
         >

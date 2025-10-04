@@ -20,7 +20,7 @@ const Popup: React.FC<PopupProps> = ({ message, show, duration = 3000, onClose }
   if (!show) return null;
 
   return (
-    <div className="fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded shadow-md animate-fadeInOut">
+    <div data-cy="popup-message"  className="fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded shadow-md animate-fadeInOut">
       {message}
     </div>
   );

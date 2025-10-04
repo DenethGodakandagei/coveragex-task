@@ -50,6 +50,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskUpdated }) => {
             {/* Right: Action Button */}
             {!task.is_completed && (
               <button
+                data-cy="mark-done-btn"
                 onClick={() => markDone(task.id)}
                 className="border border-green-600 text-green-600 px-4 py-1 rounded-md hover:bg-green-50 transition"
               >
