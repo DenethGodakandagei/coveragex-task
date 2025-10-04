@@ -63,16 +63,16 @@ const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
             rows={3}
           />
         </div>
-
+        {/*  Button */}
         <button
-          data-cy="task-form-submit" 
+          data-cy="task-form-submit"
           type="submit"
           className="w-full flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-2 rounded-md transition"
         >
           Add Task
         </button>
       </form>
-
+      {/*Popup Notification*/}
       <Popup
         message="Task added successfully!"
         show={showPopup}

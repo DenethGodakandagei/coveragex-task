@@ -35,7 +35,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskUpdated }) => {
             key={task.id}
             className="bg-white border border-gray-200 p-4 rounded-lg flex justify-between items-start shadow-sm"
           >
-            {/* Left: Title + Description */}
+            {/* Title &  Description */}
             <div className="flex-1 justify-start pr-4">
               <h3 className="font-semibold text-lg text-gray-800 break-words text-start">
                 {task.title}
@@ -47,7 +47,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskUpdated }) => {
               )}
             </div>
 
-            {/* Right: Action Button */}
+            {/*  Button */}
             {!task.is_completed && (
               <button
                 data-cy="mark-done-btn"
