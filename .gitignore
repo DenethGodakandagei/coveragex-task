@@ -16,10 +16,11 @@ backend/dist
 
 # Local environment files
 *.env
-.env.local
 .env.*.local
 
 # IDE / Editor folders
 .vscode
 .idea
 
+config.bat
+node_modules
