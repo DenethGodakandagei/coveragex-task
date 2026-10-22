@@ -19,7 +19,6 @@ backend/dist
 .env.*.local
 
 # IDE / Editor folders
-.vscode
 .idea
 
 config.bat
